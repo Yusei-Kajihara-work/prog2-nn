@@ -6,6 +6,7 @@ class MyModel(nn.Module):
         super().__init__()
 
         self.flatten = nn.Flatten()
+
         self.network = nn.Sequential(
             nn.Linear(28*28,512),
             nn.ReLU(),
@@ -16,5 +17,6 @@ class MyModel(nn.Module):
 
     def forward(self,x):
         x = self.flatten(x)
+        
         logits = self.network(x)
         return logits
