@@ -1,6 +1,7 @@
+import torch
 from torch import nn
 
-#クラスの策定
+
 class MyModel(nn.Module):
     def __init__(self):
         super().__init__()
@@ -20,3 +21,13 @@ class MyModel(nn.Module):
         
         logits = self.network(x)
         return logits
+    
+    def test(model,dataloader,loss_fn):
+        loss_total = 0.0
+
+        model.eval()
+        for image_batch,label_batch in dataloader:
+            with torch.no_grid():
+                logits_batch = model(image_batch)
+                
+            predict_batch
