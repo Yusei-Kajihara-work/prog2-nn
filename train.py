@@ -102,6 +102,19 @@ for k in range(n_epochs):
     acc_test_history.append(acc_test)
     print(f'test accuracy: {acc_test*100:.3f}%')
 
+    if (k+1) % 5 == 0:
+        time_start = time.time()
+        acc_train = models.test_accuracy(model,dataloader_train,device=device)
+        time_end = time.time()
+        acc_train_history.append(acc_train)
+        print(f'   train accuracy:{acc_train*100:.3f}% ({time_end-time_start:.1f}s)')
+
+        time_start = time.time()
+        acc_test=models.test_accuracy(model,dataloader_test,device=device)
+        time_end = time.time()
+        acc_test_history.append(acc_test)
+        print(f'test accuracy: {acc_test*100:.3f}%({time_end-time_start:.1f}s)')
+
     plt.plot(acc_train_history, label='train') 
     plt.plot(acc_test_history, label='test') 
     plt.xlabel('epochs') 
@@ -114,5 +127,6 @@ for k in range(n_epochs):
     plt.xlabel('epochs') 
     plt.ylabel('loss') 
     plt.legend() 
-    plt.grid() .show
+    plt.grid() 
+    plt.show()
 
