@@ -24,7 +24,7 @@ ds_test = datasets.FashionMNIST(
     train=False,
     download=True,
     transform=ds_transform
-)
+    )
 batch_size =64
 dataloader_train = torch.utils.data.DataLoader(
     ds_train,
@@ -68,5 +68,11 @@ for k in range(n_epochs):
     loss_train = models.test_accuracy(model,dataloader_train)
     print(f'trainaccuracy:{acc_train*100:.3f}%')
 
-    loss_test = models.test_accuracy(model,dataloader_test)
-    print(f'trainaccuracy:{acc_train*100:.3f}%')
+    loss_test = models.test(model,dataloader_test)
+    print(f'test loss:{loss_test}%')
+
+    acc_train = models.test_accuracy(model,dataloader_test,loss_fn)
+    print(f'train accuracy :{acc_train*100:.3f}%')
+    acc_test = models.test(model,dataloader_test)
+    print(f'test accuracy:{acc_test*100:.3f}%')
+    
