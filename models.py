@@ -1,6 +1,6 @@
 from torch import nn
 
-
+#クラスの策定
 class MyModel(nn.Module):
     def __init__(self):
         super().__init__()
