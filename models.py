@@ -1,6 +1,5 @@
 import torch
-from torch import nn
-
+from torch import device, nn
 
 class MyModel(nn.Module):
     def __init__(self):
@@ -25,8 +24,12 @@ class MyModel(nn.Module):
     def test(model,dataloader,loss_fn):
         loss_total = 0.0
 
+        model = model.to(device)
         model.eval()
+
         for image_batch,label_batch in dataloader:
+            image_batch = image_batch.to(device)
+            label_batch = label_batch.to(device)
             with torch.no_grid():
                 logits_batch = model(image_batch)
                 
@@ -39,12 +42,13 @@ class MyModel(nn.Module):
     
     def train(model,dataloader,loss_fn,optimizer):
 
+        model = model.to(device)
         model.train()
         for image_batch,label_batch in dataloader:
-            
+            image_batch = image_batch.to(device)
+            image_batch = label_batch.to(device)
+
             logits_batch = model(image_batch)
-
-
             loss = loss_fn(logits_batch,label_batch)
 
 
@@ -56,12 +60,15 @@ class MyModel(nn.Module):
     
     def test(model, dataloader, loss_fn):
         loss_total = 0.0
-
+        
+        model = model.to(device)
         model.eval()
         for image_batch, label_batch in dataloader:
+            image_batch = image_batch.to(device)
+            label_batch = label_batch.to(device)
+
             with torch.no_grad():
-                logits_batch = model(image_batch)
-            
+             logits_batch = model(image_batch)
             loss = loss_fn(logits_batch,label_batch)
             loss_total += loss.item()
 
